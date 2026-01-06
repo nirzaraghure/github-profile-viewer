@@ -13,7 +13,7 @@ pipeline {
         stage('Deploy Website') {
             steps {
                 script {
-                    sh '''
+                    rpm '''
                     docker stop profile || true
                     docker rm profile || true
                     docker run -d -p 3000:80 --name profile github-profile-viewer
