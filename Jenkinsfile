@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t github-profile-viewer .'
+                    rpm 'docker build -t github-profile-viewer .'
                 }
             }
         }
