@@ -22,7 +22,7 @@ pipeline {
                     sh '''
                     docker stop profile || true
                     docker rm profile || true
-                    docker run -d -p 8080:80 --name profile github-profile-viewer
+                    docker run -d -p 3000:80 --name profile github-profile-viewer
                     '''
                 }
             }
