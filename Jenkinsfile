@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t github-profile-viewer .'
+                  sh 'docker build -t github-profile-viewer .'
                 }
             }
         }
@@ -13,7 +13,7 @@ pipeline {
         stage('Deploy Website') {
             steps {
                 script {
-                    bat '''
+                    sh '''
                     docker stop profile || true
                     docker rm profile || true
                     docker run -d -p 3000:80 --name profile github-profile-viewer
