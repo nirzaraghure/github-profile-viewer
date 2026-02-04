@@ -3,38 +3,38 @@ body {
     background: #f4f4f4;
     text-align: center;
     padding: 2rem;
-  }
-  
-  .container {
-    background: white;
+}
+
+.container {
+    background: #fff;
     max-width: 500px;
-    margin: auto;
+    margin: 0 auto;
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  }
-  
-  input {
+}
+
+input {
     padding: 10px;
     width: 70%;
     margin-right: 10px;
-  }
-  
-  button {
+    box-sizing: border-box;
+}
+
+button {
     padding: 10px 20px;
     background: #24292e;
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  #profile {
+}
+
+#profile {
     margin-top: 2rem;
-  }
-  
-  img {
+}
+
+img {
     border-radius: 50%;
     width: 100px;
     margin-top: 1rem;
-  }
-  
+}
