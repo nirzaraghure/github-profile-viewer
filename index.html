@@ -18,7 +18,34 @@
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('search-btn').addEventListener('click', getProfile);
+      const searchBtn = document.getElementById('search-btn');
+      searchBtn.addEventListener('click', async function() {
+        const username = document.getElementById('username').value.trim();
+        if (username) {
+          try {
+            const url = `https://api.github.com/users/${username}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            displayProfile(data);
+          } catch (error) {
+            console.error(error);
+            alert('Failed to load user profile');
+          }
+        } else {
+          alert('Please enter a GitHub username');
+        }
+      });
+
+      function displayProfile(profile) {
+        const profileDiv = document.getElementById('profile');
+        profileDiv.innerHTML = `
+          <h2>${profile.login}</h2>
+          <p>Public Repos: ${profile.public_repos}</p>
+          <p>Public Gists: ${profile.public_gists}</p>
+          <p>Followers: ${profile.followers}</p>
+          <p>Following: ${profile.following}</p>
+        `;
+      }
     });
   </script>
 </body>
