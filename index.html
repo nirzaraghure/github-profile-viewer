@@ -20,30 +20,32 @@
 </html>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
     const searchBtn = document.getElementById('search-btn');
     searchBtn.addEventListener('click', getProfile);
+
+    const usernameInput = document.getElementById('username');
+    if (usernameInput.value.trim()) {
+      await getProfile();
+    }
   });
 
-  function getProfile() {
+  async function getProfile() {
     const username = document.getElementById('username').value.trim();
     if (username) {
       const profileDiv = document.getElementById('profile');
       profileDiv.innerHTML = '';
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          const profileData = JSON.parse(xhr.responseText);
+      try {
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        if (response.ok) {
+          const profileData = await response.json();
           renderProfile(profileData);
         } else {
-          profileDiv.innerHTML = `Error: ${xhr.statusText}`;
+          profileDiv.innerHTML = `Error: ${response.statusText}`;
         }
-      };
-      xhr.onerror = function() {
+      } catch (error) {
         profileDiv.innerHTML = 'Error: Network request failed';
-      };
-      xhr.open('GET', `https://api.github.com/users/${username}`, true);
-      xhr.send();
+      }
     } else {
       alert('Please enter a GitHub username');
     }
@@ -53,10 +55,10 @@
     const profileDiv = document.getElementById('profile');
     const profileHTML = `
       <h2>${profileData.name}</h2>
-      <p>Username: ${profileData.login}</p>
-      <p>Profile URL: <a href="${profileData.html_url}">${profileData.html_url}</a></p>
-      <p>Email: ${profileData.email}</p>
-      <p>Bio: ${profileData.bio}</p>
+      <p>Username: <a href="${profileData.html_url}" target="_blank">${profileData.login}</a></p>
+      <p>Profile URL: <a href="${profileData.html_url}" target="_blank">${profileData.html_url}</a></p>
+      <p>Email: ${profileData.email || 'Not Available'}</p>
+      <p>Bio: ${profileData.bio || 'Not Available'}</p>
     `;
     profileDiv.innerHTML = profileHTML;
   }
