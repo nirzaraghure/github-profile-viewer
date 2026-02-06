@@ -17,8 +17,9 @@
 
   <script src="script.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('search-btn').addEventListener('click', getProfile);
+    document.addEventListener('DOMContentLoaded', async () => {
+      const searchBtn = document.getElementById('search-btn');
+      searchBtn.addEventListener('click', getProfile);
     });
   </script>
 </body>
